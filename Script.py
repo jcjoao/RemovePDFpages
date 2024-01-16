@@ -23,6 +23,10 @@ class PDFViewer:
         self.image_label.pack(expand="true")
 
         # Buttons for actions
+
+        self.label = tk.Label(self.root, text="")
+        self.label.pack()
+
         btn_frame = tk.Frame(self.root)
         btn_frame.pack(pady=10)
 
@@ -52,6 +56,13 @@ class PDFViewer:
         self.show_current_page()
 
     def show_current_page(self):
+
+        if self.current_page in self.kept_pages:
+            self.label.config(text="Kept")
+        else:
+            self.label.config(text="Deleted")
+        self.root.update()
+
         page = self.doc.load_page(self.current_page)
         pix = page.get_pixmap()
 
@@ -106,7 +117,7 @@ class PDFViewer:
 
 
 if __name__ == "__main__":
-    pdf_path = ""  # Replace with the path to your PDF file
+    pdf_path = "C:/Users/jc/Documents/Tecnico/Aprof/Lectures/all_lectures_handout.pdf"  # Replace with the path to your PDF file
     pdf_viewer = PDFViewer(pdf_path)
     pdf_viewer.root.mainloop()
 
