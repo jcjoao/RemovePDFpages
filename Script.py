@@ -66,8 +66,12 @@ class PDFViewer:
         page = self.doc.load_page(self.current_page)
         pix = page.get_pixmap()
 
-        # Convert Pixmap to Image
+        # Adjust the scaling factor as needed
+        scaling_factor = 1.5
+
+        # Convert Pixmap to Image and scale
         img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+        img = img.resize((int(img.width * scaling_factor), int(img.height * scaling_factor)), Image.ANTIALIAS)
 
         # Convert Image to PhotoImage
         img_tk = ImageTk.PhotoImage(image=img)
@@ -117,7 +121,7 @@ class PDFViewer:
 
 
 if __name__ == "__main__":
-    pdf_path = "C:/Users/jc/Documents/Tecnico/Aprof/Lectures/all_lectures_handout.pdf"  # Replace with the path to your PDF file
+    pdf_path = ""  # Replace with the path to your PDF file
     pdf_viewer = PDFViewer(pdf_path)
     pdf_viewer.root.mainloop()
 
